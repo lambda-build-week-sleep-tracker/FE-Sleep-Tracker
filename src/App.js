@@ -12,8 +12,7 @@ function App() {
   return (
     <div className="App">
       <p>App Component</p>
-			{/* <LoginForm/> */}
-      <SleepLog />
+			<LoginForm/>
     </div>
   );
 }
