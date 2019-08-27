@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <p>App Component</p>
-			<LoginForm/>
+			<LoginForm/> 
 			<SignUpForm/>
     </div>
   );
