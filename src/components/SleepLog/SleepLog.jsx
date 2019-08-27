@@ -1,5 +1,7 @@
 import React from 'react'; 
 
+import './SleepLog.scss'; 
+
 const SleepLog = () => {
     return ( 
         <div>
