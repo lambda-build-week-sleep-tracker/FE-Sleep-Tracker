@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 // Importing Styles
 import './loginForm.scss'
-import axios from 'axios';
+
 
 function LoginForm() {
 
@@ -46,7 +46,7 @@ function LoginForm() {
 					onChange={changeHandler}
 					/>
 
-				<button type="submit">Submit</button>
+				<button type="submit" onClick={formSubmit}>Submit</button>
 				</form>
 			</div>
 			

@@ -95,7 +95,7 @@ function SignUpForm() {
 						onChange={changeHandler}
 						/>
 
-					<button type="submit">Submit</button>
+					<button type="submit" onClick={submitForm}>Submit</button>
 				</form>
 			</div>
 		</div>
