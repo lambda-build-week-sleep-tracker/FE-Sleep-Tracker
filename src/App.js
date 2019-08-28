@@ -13,9 +13,9 @@ function App() {
   return (
     <div className="App">
         <p>App Component</p>
-        <LoginForm/> 
-        <SignUpForm/>
-        {/* <SleepLog /> */}
+        {/* <LoginForm/> 
+        <SignUpForm/> */}
+        <SleepLog />
     </div>
   );
 }

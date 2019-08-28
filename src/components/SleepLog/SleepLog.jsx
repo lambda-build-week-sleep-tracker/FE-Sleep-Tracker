@@ -7,6 +7,42 @@ import './SleepLog.scss';
 
 const SleepLog = () => {
 
+    const timeArr = [
+        {
+            start: '8:30',
+            end: '7:00'
+        },
+        {
+            start: '8:00',
+            end: '6:00'
+        },
+        {
+            start: '5:30',
+            end: '9:00'
+        },
+        {
+            start: '8:30',
+            end: '9:00'
+        },
+        {
+            start: '8:00',
+            end: '8:00'
+        },
+        {
+            start: '7:30',
+            end: '7:00'
+        },
+        {
+            start: '6:30',
+            end: '9:00'
+        },
+        {
+            start: '10:30',
+            end: '10:00'
+        },
+
+    ]
+
     const today = new Date(); 
 
     return ( 
@@ -20,12 +56,12 @@ const SleepLog = () => {
             <div className="edit-btn-container">
                 <button className="edit-btn">Edit</button>
             </div>
-            <LogEntry />
-            {/* <div className="time-log">
-                {time.map((time) => (
-                    <LogEntry />
+            {/* <LogEntry /> */}
+            <div className="time-log">
+                {timeArr.map((time) => (
+                    <LogEntry startTime={time.start} endTime={time.end}/>
                 ))}
-            </div> */}
+            </div>
             <div>
                 <input type="text" placeholder="Search"/>
                 <button className="add-time">Add new time</button>
