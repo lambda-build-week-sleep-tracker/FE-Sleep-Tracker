@@ -15,15 +15,21 @@ import React, { Component } from 'react';
 //     }}
 
 // Digital Clock
-// let time = new Date().toLocaleString();
+// let time = new Date().toLocaleString();  
+let timerStart = [];
+let timerEnd = [];
+let timerTotal = [];
+
 class DigClock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: new Date().toLocaleString()
+      hour: new Date().getHours().toLocaleString(),
+      minute: new Date().getMinutes().toLocaleString(),
     }
   }
 
+  
   componentDidMount() {
     this.intervalID = setInterval(
       () => this.tick(),
@@ -37,18 +43,46 @@ class DigClock extends React.Component {
 
   tick() {
     this.setState({
-      time: new Date().toLocaleString()
+      hour: new Date().getHours().toLocaleString(),
+      minute: new Date().getMinutes().toLocaleString()
     });
   }
 
   render() {
     return (
       <p className='AppClock'>
-        {this.state.time}
+        {this.state.hour}:{this.state.minute}
       </p>
     )
   }
 }
+
+
+function timer(a,b) {
+  return (b - a)
+}
+
+function startTimer() {
+  let hour= new Date().getHours().toLocaleString();
+  let minute= new Date().getMinutes().toLocaleString();
+  timerStart = `${hour}:${minute}`;
+  console.log(timerStart);
+  return timerStart;
+}
+
+function endTimer(){
+  let hour= new Date().getHours().toLocaleString();
+  let minute= new Date().getMinutes().toLocaleString();
+  timerEnd = `${hour}:${minute}`;
+  console.log(timerEnd);
+
+  timerTotal = timer(timerStart, timerEnd);
+  return timerTotal;
+}
+
+// logTime = () => {
+
+// }
 
 class ClockApp extends Component {
   render() {
@@ -62,9 +96,9 @@ class ClockApp extends Component {
           <h2>Awake</h2>
         </div>
         <DigClock />
-        <button class="StartTimer">Start Sleep Timer</button>
-        <button class="EndTimer">End Sleep Timer</button>
-        <button class="LogTimer">Log Sleep Time</button>
+        <button className="StartTimer" onClick={startTimer()}>Start Sleep Timer</button>
+        <button className="EndTimer" onClick={endTimer()}>End Sleep Timer</button>
+        <button className="LogTime" onClick={this.logTime}>Log Sleep Time</button>
 
         {/* VVVVV This is for the analog VVVVV */}
         {/* <Clock value={this.state.date}/> */}
