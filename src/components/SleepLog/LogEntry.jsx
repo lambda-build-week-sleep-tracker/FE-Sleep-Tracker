@@ -13,7 +13,7 @@ const LogEntry = (props) => {
                 <input placeholder="End Time"/>
             </div>
         </div>
-     );
+    );
 }
  
 export default LogEntry;

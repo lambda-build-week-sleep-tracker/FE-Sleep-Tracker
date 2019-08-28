@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 
 function SignUpForm({ touched, errors, values }) {
 
-	return(
+	return (
 		<div className="signUp-container">
 			<h2>Sign Up</h2>
 			<div className="form-container">
@@ -56,6 +56,7 @@ function SignUpForm({ touched, errors, values }) {
 	)
 }
 
+<<<<<<< HEAD
 const FormikSignUpForm = withFormik({
 	
 	// Decalring prop names that are assigned to formiks values prop
@@ -89,3 +90,9 @@ const FormikSignUpForm = withFormik({
 })(SignUpForm)
 
 export default FormikSignUpForm
+=======
+
+
+
+export default SignUpForm
+>>>>>>> 1142711cfd763e69a3832942258c9180a3c71c58
