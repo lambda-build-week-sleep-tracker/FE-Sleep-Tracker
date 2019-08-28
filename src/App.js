@@ -12,9 +12,10 @@ import SleepLog from './components/SleepLog/SleepLog';
 function App() {
   return (
     <div className="App">
-      <p>App Component</p>
-			<LoginForm/> 
-			<SignUpForm/>
+        <p>App Component</p>
+        <LoginForm/> 
+        <SignUpForm/>
+        {/* <SleepLog /> */}
     </div>
   );
 }
