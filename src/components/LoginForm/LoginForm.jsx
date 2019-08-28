@@ -15,7 +15,7 @@ function LoginForm() {
 	}
 
 	const formSubmit = event => {
-		event.prevetDefault()
+		event.preventDefault()
 		// axios.post(user)
 	}
 
@@ -23,7 +23,7 @@ function LoginForm() {
 		<div className="login-container">
 			<h2>Login</h2>
 			<div className="form-container">
-				<form>
+				<form onSubmit={formSubmit}>
 				{/* User Name Input */}
 				<label htmlFor="userName">User Name</label>
 				<input 
@@ -46,7 +46,7 @@ function LoginForm() {
 					onChange={changeHandler}
 					/>
 
-				<button type="submit" onClick={formSubmit}>Submit</button>
+				<button type="submit">Submit</button>
 				</form>
 			</div>
 			
