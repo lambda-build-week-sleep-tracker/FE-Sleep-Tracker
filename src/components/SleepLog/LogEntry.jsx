@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
 
-//importing styling
-import './LogEntry.scss'
 
 const LogEntry = (props) => {
-    
+    console.log(props); 
     return ( 
         <div className="log-block-container">
             <div className="log-block">
-                <input placeholder="Start Time" />
+                <input placeholder="Start Time" 
+                value={props.logState.start}/>
                 <hr className="time-splitter"/>
-                <input placeholder="End Time"/>
+                <input placeholder="End Time"
+                value={props.logState.end} />
+                <div className="hoursSlept">{props.logState.hoursSlept}</div>
             </div>
         </div>
     );
