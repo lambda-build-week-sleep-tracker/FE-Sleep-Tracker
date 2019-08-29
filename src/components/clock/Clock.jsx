@@ -95,15 +95,8 @@ class ClockApp extends Component {
 				<button className="EndTimer" name="endTime" onClick={(event) => this.getCurrentTime(event)}>
          	End Sleep Timer
 				</button>
-{/*
-//         <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
-//         }>
-//           Log Sleep Time
-//           </button> */}
 
-      <EmojiButtons 
-      setMood= {this.changeMood}
-      />
+      <EmojiButtons setMood= {this.changeMood}/>
       </div>
     );
   }
