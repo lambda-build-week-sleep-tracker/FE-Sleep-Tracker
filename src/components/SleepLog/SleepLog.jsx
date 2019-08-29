@@ -10,8 +10,14 @@ import SleepLogModal from './SleepLogModal.jsx';
 
 const SleepLog = () => {
 
+    const initialModal = {
+        
+    }
+
     const [ logState, setLogState ] = useState()
     const [ showModal, setShowModal ] = useState(false)
+    const [ modalEditing, setModalEditing ] = useState(false); 
+    const [ modalToEdit, setModalToEdit ] = useState(initialModal); 
 
     const childID = localStorage.getItem('id')
 
@@ -35,6 +41,20 @@ const SleepLog = () => {
     const handleClose = () => {
         setShowModal(false)
         console.log(showModal)
+    }
+
+    const editModal = modal => {
+        setModalEditing(true); 
+        setModalToEdit(modal); 
+    }
+
+    const saveEdit = () => {
+        axiosWithAuth()
+            .put(`https://sleeptracker-api.herokuapp.com/api/sleep/${modalToEdit.id}`, modalToEdit)
+            .then(res => {
+                handleClose(); 
+                console.log(res)
+            })
     }
 
 

@@ -11,10 +11,10 @@ const LogEntry = (props) => {
     return ( 
         <>
             <div className="time-wrapper">
-                <div className="time-field">{start}</div> 
+                <div className="time-field">{start}</div>
                 <hr className="time-splitter"/>
                 <div className="time-field">{end}</div>
-                <div className="hoursSlept" onClick={props.displayModal}>
+                <div className="hoursSlept" onClick={props.displayEditModal}>
                 {Math.floor(hrsSlept)}<br/>Hrs
                 </div>
             </div>
