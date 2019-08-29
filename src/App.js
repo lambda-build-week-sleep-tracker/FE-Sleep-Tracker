@@ -17,9 +17,9 @@ function App() {
     <div className="App">
       {/* <Nav /> */}
       {/* <Home /> */}
-       {/* <LoginForm/> 
-			<SignUpForm/> */}
-			<Clock/>
+        <LoginForm/> 
+				<SignUpForm/>
+			{/* <Clock/> */}
     </div>
   );
 }
