@@ -13,17 +13,18 @@ const SleepLog = () => {
     const [ logState, setLogState ] = useState()
     const [ showModal, setShowModal ] = useState(false)
 
+    const childID = localStorage.getItem('id')
+
     useEffect(() => {
+        
         axiosWithAuth()
-            .get('https://sleeptracker-api.herokuapp.com/api/sleep/:id')
-            .then(res => {
-                setLogState([
-                    ...logState,
-                    res.data
-                ])
+            .get(`https://sleeptracker-api.herokuapp.com/api/sleep/${childID}`)
+            .then(res => { 
+                setLogState(res.data.data)
+                console.log(res.data.data); 
             })
             .catch(err => console.log(err))
-    }, [logState])
+    }, [])
 
 
     const displayModal = () => {
@@ -39,9 +40,13 @@ const SleepLog = () => {
 
     const today = new Date(); 
 
+    if(!logState) {
+        return (<h2>Loading...</h2>)
+    }
+    console.log(logState.data); 
     return ( 
         <div className="sleep-log">
-            <p className="top-p">{`${logState.childName} has been asleep for `}<strong>1 hr 20 min</strong></p>
+            {/* <p className="top-p">{`${logState.timeArr.childName} has been asleep for `}<strong>1 hr 20 min</strong></p> */}
             <p className="bottom-p">She should be awake in <strong>4 hr</strong></p>
             <hr className="divider"/>
             <h1>Sleep Log</h1>
@@ -53,8 +58,8 @@ const SleepLog = () => {
             </div>
             {/* <LogEntry /> */}
             <div className="time-log">
-                {logState.timeArr.map((time) => (
-                    <LogEntry logState={time} key={uuid()}/>
+                {logState.map((timeObj) => (
+                    <LogEntry logState={timeObj} key={uuid()} handleClose={handleClose} displayModal={displayModal}/>
                 ))}
             </div>
             <hr className="divider"/>
