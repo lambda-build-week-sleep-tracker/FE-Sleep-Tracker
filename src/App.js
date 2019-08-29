@@ -1,20 +1,25 @@
 import React from 'react';
 import './index.css';
 
+
+
 // Importing components
-import LoginForm from './components/LoginForm';
+import LoginForm from './components/LoginForm/LoginForm';
+import SignUpForm from './components/signUpForm/SignUpForm';
+import SleepLog from './components/SleepLog/SleepLog';
+import Home from './components/Home/Home'
+import Nav from './components/Nav/Nav'
+import Clock from './components/clock/Clock'
+
+
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      <p>App Component</p>
-			<LoginForm/>
-=======
-        <p>App Component</p>
-        {/* <LoginForm/> 
-        <SignUpForm/> */}
-        <SleepLog />
->>>>>>> b28fc5eecb44e966357b624e5046724e837b8215
+      {/* <Nav /> */}
+      {/* <Home /> */}
+       {/* <LoginForm/> 
+			<SignUpForm/> */}
+			<Clock/>
     </div>
   );
 }
