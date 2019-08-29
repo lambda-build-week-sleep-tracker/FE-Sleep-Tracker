@@ -2,18 +2,18 @@ import React, { Fragment } from 'react';
 
 
 const LogEntry = (props) => {
-    console.log(props); 
+    // console.log(props); 
     return ( 
-        <div className="log-block-container">
-            <div className="log-block">
-                <input placeholder="Start Time" 
-                value={props.logState.start}/>
+        <>
+            <div className="time-wrapper">
+                <div className="time-field">{props.logState.start}</div> 
                 <hr className="time-splitter"/>
-                <input placeholder="End Time"
-                value={props.logState.end} />
-                <div className="hoursSlept">{props.logState.hoursSlept}</div>
+                <div className="time-field">{props.logState.end}</div>
+                <div className="hoursSlept" onClick={() => console.log('div clicked')}>
+                {props.logState.hoursSlept}<br/>Hrs
+                </div>
             </div>
-        </div>
+        </>
     );
 }
  

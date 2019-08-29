@@ -6,67 +6,16 @@ import LogEntry from './LogEntry';
 import './SleepLog.scss'; 
 import axiosWithAuth from '../axiosWithAuth';
 import uuid from 'uuid/v1';  
+import SleepLogModal from './SleepLogModal.jsx';
 
 const SleepLog = () => {
 
-    const [ logState, setLogState ] = useState({
-        
-        childName: "Georgia",
-        timeArr: [
-            {
-                start: '8:30 PM',
-                end: '7:00 AM',
-                hoursSlept: 10.5,
-                childName: "Georgia",
-            },
-            {
-                start: '8:00 PM',
-                end: '6:00 AM',
-                hoursSlept: 10,
-                childName: "Georgia"
-            },
-            {
-                start: '5:30 PM',
-                end: '9:00 AM',
-                hoursSlept: 15.5,
-                childName: "Georgia"
-            },
-            {
-                start: '8:30 PM',
-                end: '9:00 AM',
-                hoursSlept: 11.5,
-                childName: "Georgia"
-            },
-            {
-                start: '8:00 PM',
-                end: '8:00 AM',
-                hoursSlept: 12,
-                childName: "Georgia"
-            },
-            {
-                start: '7:30 PM',
-                end: '7:00 AM',
-                hoursSlept: 11.5,
-                childName: "Georgia"
-            },
-            {
-                start: '6:30 PM',
-                end: '9:00 AM',
-                hoursSlept: 14.5,
-                childName: "Georgia"
-            },
-            {
-                start: '10:30 PM',
-                end: '10:00 AM',
-                hoursSlept: 11.5,
-                childName: "Georgia"
-            },
-        ]
-    })
+    const [ logState, setLogState ] = useState()
+    const [ showModal, setShowModal ] = useState(false)
 
     useEffect(() => {
         axiosWithAuth()
-            .get('url here')
+            .get('https://sleeptracker-api.herokuapp.com/api/sleep/:id')
             .then(res => {
                 setLogState([
                     ...logState,
@@ -76,28 +25,37 @@ const SleepLog = () => {
             .catch(err => console.log(err))
     }, [logState])
 
+
+    const displayModal = () => {
+        setShowModal(true)
+        console.log(showModal)
+    }
+
+    const handleClose = () => {
+        setShowModal(false)
+        console.log(showModal)
+    }
+
+
     const today = new Date(); 
 
     return ( 
         <div className="sleep-log">
-            <div className="top-section">
-                <p className="top-p">{`${logState.childName} has been asleep for `}<strong>1 hr 20 min</strong></p>
-                <p className="bottom-p">She should be awake in <strong>4 hr</strong></p>
-                <hr className="divider"/>
-            </div>
+            <p className="top-p">{`${logState.childName} has been asleep for `}<strong>1 hr 20 min</strong></p>
+            <p className="bottom-p">She should be awake in <strong>4 hr</strong></p>
+            <hr className="divider"/>
             <h1>Sleep Log</h1>
-            <div className="edit-btn-container">
-                <button className="edit-btn">Edit</button>
+            <div className='search-add'>
+                {/* <input type="text" placeholder="Search"/> */}
+                {showModal ? <SleepLogModal showModal={showModal} logState={logState} handleClose={handleClose} /> : null}
+                {/* <SleepLogModal show={showModal} handleClose={handleClose} /> */}
+                <button className="add-time" onClick={displayModal}>Add new time</button>
             </div>
             {/* <LogEntry /> */}
             <div className="time-log">
                 {logState.timeArr.map((time) => (
                     <LogEntry logState={time} key={uuid()}/>
                 ))}
-            </div>
-            <div>
-                <input type="text" placeholder="Search"/>
-                <button className="add-time">Add new time</button>
             </div>
             <hr className="divider"/>
             <div className="date-block">
