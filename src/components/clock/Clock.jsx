@@ -2,114 +2,104 @@ import React, { Component, useState } from 'react';
 import './Clock.scss';
 import axios from 'axios';
 
-// Digital Clock
-// let time = new Date().toLocaleString();  
-
-let timerStart = [];
-let timerEnd = [];
-// let timerTotal = [];
-
-class DigClock extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hour: new Date().getHours().toLocaleString(),
-      minute: new Date().getMinutes().toLocaleString(),
-    }
-  }
-
-  componentDidMount() {
-    this.intervalID = setInterval(
-      () => this.tick(),
-      1000
-    );
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.intervalID);
-  }
-
-  tick() {
-    this.setState({
-      hour: new Date().getHours().toLocaleString(),
-      minute: new Date().getMinutes().toLocaleString()
-    });
-  }
-
-  render() {
-    return (
-      <p className='AppClock'>
-        {this.state.hour}:{this.state.minute}
-      </p>
-    )
-  }
-}
-
-
-function startTimer(obj) {
-  let hour = new Date().getHours().toLocaleString();
-  let minute = new Date().getMinutes().toLocaleString();
-  timerStart = `${hour}:${minute}`;
-  console.log(timerStart);
-  obj = timerStart;
-  return (obj);
-}
-
-function endTimer(obj) {
-  let hour = new Date().getHours().toLocaleString();
-  let minute = new Date().getMinutes().toLocaleString();
-  timerEnd = `${hour}:${minute}`;
-  console.log(timerEnd);
-  console.log(timerStart);
-  obj = timerEnd;
-  return (obj);
-}
-
-function logTimer(obj1, obj2) {
-  axios.post(`https://reqres.in/api/users/`, { obj1, obj2 })
-    .then(res => {
-      console.log(res.data);
-    })
-}
-
 class ClockApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      startTime: null,
-      endTime: null
-    }
-  }
+  state ={
+		startTime: null,
+		endTime: null,
+		h: null,
+		m: null,
+		dh: null,
+		dm: null,
+		session: "AM",
+	}
+
+	componentDidMount(){
+		setInterval(() => {
+			this.setState({...this.state, h: new Date().getHours(), m: new Date().getMinutes()})
+			console.log(this.state.h, this.state.m)
+			setInterval(this.showTime(), 1000)
+		}, 1000);
+	}
+
+	showTime() {
+		
+		// Check for midnight
+		if(this.state.h === 0){
+			this.setState({...this.state, dh: 12})
+		}
+		else{
+			this.setState({...this.state, dh: this.state.h})
+		}
+
+		if (this.state.h > 12){
+			// Check if the time is in the afternoon
+			this.setState({...this.state, dh: (this.state.h - 12), session: "PM"})
+		}
+
+		if(this.state.m < 10){
+			this.setState({...this.state, dm: `0${this.state.m}`});
+		}
+		else{
+			this.setState({...this.state, dm: this.state.m})
+		}
+
+		let time = `${this.state.dh}:${this.state.dm}`
+		
+		this.setState({...this.state, dt: time})
+
+	}
+
+	getCurrentTime(event){
+
+		// Hour is set to let bc it is subject to change
+		let currentHour = new Date().getHours()
+		const currentMinute = new Date().getMinutes()
+
+		// Check for midnight, if so change the time to 12
+		if(currentHour === 0){
+			currentHour = 12
+		}
+
+		this.setState({...this.state, [event.target.name]: `${currentHour}:${currentMinute}`})
+
+	}
+
+
+
   render() {
     return (
-      <div className="App">
+      <div className="time-container">
         <div className="Row">
         <div className="Start">
-          <h2>Start</h2>
-          <DigClock className="StartClock" />
+          <h2>Start Time</h2>
+					<p>{this.state.startTime}</p>
         </div>
         <div className="Awake">
-          <h2>Awake</h2>
-          <DigClock className="AwakeClock"/>
+          <h2>Awake Time</h2>
+					<p>{this.state.endTime}</p>
         </div>
-        </div>
-        <DigClock />
-        
-        <button className="StartTimer" onClick={() =>
-          startTimer(this.state.startTime)
-        }>
-          Start Sleep Timer
-            </button>
+				<div className="timer">
+					{this.state.dt}
+				</div>
+			</div>
+         
+				<button className="StartTimer" name="startTime" 
+					onClick={(event) => {
+							this.getCurrentTime(event)
+						}
 
-        <button className="EndTimer" onClick={() => endTimer(this.state.endTime)
-        }>
-          End Sleep Timer
-          </button>
-
-        <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
-        }>
-          Log Sleep Time
-          </button>
+					}>
+					Start Sleep Timer
+				</button>
+ 
+				<button className="EndTimer" name="endTime" onClick={(event) => this.getCurrentTime(event)}>
+         	End Sleep Timer
+				</button>
+{/*
+//         <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
+//         }>
+//           Log Sleep Time
+//           </button> */}
 
 
       </div>

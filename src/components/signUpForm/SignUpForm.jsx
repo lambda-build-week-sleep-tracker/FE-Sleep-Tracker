@@ -81,9 +81,18 @@ const FormikSignUpForm = withFormik({
 
 	// Handling Form Submission
 	handleSubmit(values,  { resetForm }){
+		
+		// Formatting the birtrhday to an ISO string for the DB
+		const childBirthday = new Date(values.newChildBirthday)
+		const newValues = {
+			...values,
+			newChildBirthday: childBirthday.toISOString()
+		}
+
 		axios
-			.post("URL", values)
+			.post("URL", newValues)
 			.then( () => resetForm() )
+
 	}
 
 })(SignUpForm)
