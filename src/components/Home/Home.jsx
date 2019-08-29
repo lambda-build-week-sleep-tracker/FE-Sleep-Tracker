@@ -11,13 +11,6 @@ function Home() {
                 <input type="text"/>
                 <div>Graph placeholder</div>
             </div>
-            {/* <p>How was your day</p> */}
-            {/* <div className="emoji-holder">
-                <div className="emoji">👍🏻</div>
-                <div className="emoji">👌🏻</div>
-                <div className="emoji">👎🏻</div>
-                <div className="emoji">👊🏻</div>
-            </div>  */}
         </div>
     )
 }
