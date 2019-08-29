@@ -1,4 +1,5 @@
 import React from 'react';
+import axiosWithAuth from '../axiosWithAuth';
 
 
 const LogEntry = (props) => {
@@ -7,6 +8,12 @@ const LogEntry = (props) => {
     const end = new Date(props.logState.sleep_end).toLocaleTimeString(); 
     const msSlept = props.logState.sleep_end - props.logState.sleep_start
     const hrsSlept = msSlept / (1000 * 60 * 60); 
+
+    const deleteEntry = () => {
+        axiosWithAuth() 
+            .delete('')
+            .then()
+    }
 
     return ( 
         <>
