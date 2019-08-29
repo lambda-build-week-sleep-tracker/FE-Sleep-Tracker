@@ -1,24 +1,13 @@
-import React, { Component } from 'react';
-// import Clock from 'react-clock'
-
-// // Analog Clock (Does not work)
-// class AnaClock extends React.Component {
-//     state = {
-//       date: new Date(),
-//     }
-
-//     componentDidMount() {
-//       setInterval(
-//         () => this.setState({ date: new Date() }),
-//         1000
-//       );
-//     }}
+import React, { Component, useState } from 'react';
+import './Clock.scss';
+import axios from 'axios';
 
 // Digital Clock
 // let time = new Date().toLocaleString();  
+
 let timerStart = [];
 let timerEnd = [];
-let timerTotal = [];
+// let timerTotal = [];
 
 class DigClock extends React.Component {
   constructor(props) {
@@ -29,7 +18,6 @@ class DigClock extends React.Component {
     }
   }
 
-  
   componentDidMount() {
     this.intervalID = setInterval(
       () => this.tick(),
@@ -58,54 +46,75 @@ class DigClock extends React.Component {
 }
 
 
-function timer(a,b) {
-  return (b - a)
-}
-
-function startTimer() {
-  let hour= new Date().getHours().toLocaleString();
-  let minute= new Date().getMinutes().toLocaleString();
+function startTimer(obj) {
+  let hour = new Date().getHours().toLocaleString();
+  let minute = new Date().getMinutes().toLocaleString();
   timerStart = `${hour}:${minute}`;
   console.log(timerStart);
-  return timerStart;
+  obj = timerStart;
+  return (obj);
 }
 
-function endTimer(){
-  let hour= new Date().getHours().toLocaleString();
-  let minute= new Date().getMinutes().toLocaleString();
+function endTimer(obj) {
+  let hour = new Date().getHours().toLocaleString();
+  let minute = new Date().getMinutes().toLocaleString();
   timerEnd = `${hour}:${minute}`;
   console.log(timerEnd);
-
-  timerTotal = timer(timerStart, timerEnd);
-  return timerTotal;
+  console.log(timerStart);
+  obj = timerEnd;
+  return (obj);
 }
 
-// logTime = () => {
-
-// }
+function logTimer(obj1, obj2) {
+  axios.post(`https://reqres.in/api/users/`, { obj1, obj2 })
+    .then(res => {
+      console.log(res.data);
+    })
+}
 
 class ClockApp extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startTime: null,
+      endTime: null
+    }
+  }
   render() {
     return (
       <div className="App">
+        <div className="Row">
         <div className="Start">
           <h2>Start</h2>
-          <DigClock class="StartClock"/>
+          <DigClock className="StartClock" />
         </div>
         <div className="Awake">
           <h2>Awake</h2>
+          <DigClock className="AwakeClock"/>
+        </div>
         </div>
         <DigClock />
-        <button className="StartTimer" onClick={startTimer()}>Start Sleep Timer</button>
-        <button className="EndTimer" onClick={endTimer()}>End Sleep Timer</button>
-        <button className="LogTime" onClick={this.logTime}>Log Sleep Time</button>
+        
+        <button className="StartTimer" onClick={() =>
+          startTimer(this.state.startTime)
+        }>
+          Start Sleep Timer
+            </button>
 
-        {/* VVVVV This is for the analog VVVVV */}
-        {/* <Clock value={this.state.date}/> */}
+        <button className="EndTimer" onClick={() => endTimer(this.state.endTime)
+        }>
+          End Sleep Timer
+          </button>
+
+        <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
+        }>
+          Log Sleep Time
+          </button>
+
 
       </div>
     );
   }
 }
-//  
+
 export default ClockApp;
