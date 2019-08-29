@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Clock.scss';
+import './EmojiButtons.scss';
 
 export default function EmojiButtons(props) {
     const value = {};
@@ -12,7 +12,7 @@ export default function EmojiButtons(props) {
     console.log(props)
 
     return (
-      <div>
+      <div className="emoji">
         <button 
         onClick={() => handleSubmit(4)}
           label="Smile Face"
