@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import { withFormik, Field, Form } from 'formik'
 import * as Yup from 'yup'
+import { Link } from 'react-router-dom'; 
 
 function SignUpForm({ touched, errors, values }) {
 
@@ -13,23 +14,23 @@ function SignUpForm({ touched, errors, values }) {
 					{/* New User Name */}
 					<label>
 						User Name
-						<Field type="text" name="newUserName" placeholder="John Doe" />
-						{touched.newUserName && errors.newUserName && <p>{errors.newUserName}</p> }
+						<Field type="text" name="parent_name" placeholder="John Doe" />
+						{touched.parent_name && errors.parent_name && <p>{errors.parent_name}</p> }
 						</label>
 
 					{/* New User Email */}
 					<label>
 						Email:
-						<Field type="email" name="newUserEmail" placeholder="JohDoe@gmail.com"/>
-						{touched.newUserEmail && errors.newUserEmail && <p>{errors.newUserEmail}</p> }
+						<Field type="email" name="email" placeholder="JohDoe@gmail.com"/>
+						{touched.email && errors.email && <p>{errors.email}</p> }
 					</label>
 					
 
 					{/* Password */}
 					<label>
 						Password
-						<Field type="password" name="newUserPassword" placeholder="Password"/>
-						{ touched.newUserPassword && errors.newUserPassword && <p>{errors.newUserPassword}</p> }
+						<Field type="password" name="password" placeholder="Password"/>
+						{ touched.password && errors.password && <p>{errors.password}</p> }
 							{/* pattern="^(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*\d.*)[a-zA-Z\d]{8,}$" */}
 					</label>
 					
@@ -37,20 +38,21 @@ function SignUpForm({ touched, errors, values }) {
 					{/* Child Name */}
 					<label>
 						Child Name
-						<Field type="text" name="newChildName" placeholder="John Doe Jr"/>
-						{ touched.newChildName && errors.newChildName && <p>{errors.newChildName}</p> }
+						<Field type="text" name="child_name" placeholder="John Doe Jr"/>
+						{ touched.child_name && errors.child_name && <p>{errors.child_name}</p> }
 					</label>
 					
 
 					{/* Child Birthdat */}
 					<label>
 						What is your Childs Birthday
-						<Field type="date" name="newChildBirthday" min="2000-01-01"/>
-						{ touched.newChildBirthday && errors.newChildBirthday && <p>{errors.newChildBirthday}</p> }
+						<Field type="date" name="birthday" min="2000-01-01"/>
+						{ touched.birthday && errors.birthday && <p>{errors.birthday}</p> }
 					</label>
 
 					<button type="submit">Submit</button>
 				</Form>
+				<p>Already have an account? <Link to='/'>Login</Link></p>
 			</div>
 		</div>
 	)
@@ -59,39 +61,43 @@ function SignUpForm({ touched, errors, values }) {
 const FormikSignUpForm = withFormik({
 	
 	// Decalring prop names that are assigned to formiks values prop
-	mapPropsToValues({newUserName, newUserEmail, newUserPassword, newChildName, newChildBirthday}){
+	mapPropsToValues({parent_name, email, password, child_name, birthday}){
 		return {
 			// State Values
-			newUserName: newUserName || "",
-			newUserEmail: newUserEmail || "",
-			newUserPassword: newUserPassword || "",
-			newChildName: newChildName || "",
-			newChildBirthday: newChildBirthday || ""
+			parent_name: parent_name || "",
+			email: email || "",
+			password: password || "",
+			child_name: child_name || "",
+			birthday: birthday || ""
 		}
 	},
 
 	// YUP validation
 	validationSchema: Yup.object().shape({
-		newUserName: Yup.string().required("You must enter a user name"),
-		newUserEmail: Yup.string().email().required("You must enter in a email"),
-		newUserPassword: Yup.string().min(8,"Your password must be atleast 8 characters long").required("You must enter in a password"),
-		newChildName: Yup.string().required("What did you not give your child a name..."),
-		newChildBirthday: Yup.string().required("You must set a brithday")
+		parent_name: Yup.string().required("You must enter a user name"),
+		email: Yup.string().email().required("You must enter in a email"),
+		password: Yup.string().min(8,"Your password must be atleast 8 characters long").required("You must enter in a password"),
+		child_name: Yup.string().required("What did you not give your child a name..."),
+		birthday: Yup.string().required("You must set a brithday")
 	}),
 
 	// Handling Form Submission
 	handleSubmit(values,  { resetForm }){
 		
 		// Formatting the birtrhday to an ISO string for the DB
-		const childBirthday = new Date(values.newChildBirthday)
+		const childBirthday = new Date(values.birthday)
 		const newValues = {
 			...values,
-			newChildBirthday: childBirthday.toISOString()
+			birthday: childBirthday.toISOString()
 		}
 
 		axios
-			.post("URL", newValues)
-			.then( () => resetForm() )
+			.post("https://sleeptracker-api.herokuapp.com/auth/register", newValues)
+			.then((res) => {
+				resetForm()
+				console.log(res)
+			})
+			.catch(err => console.log(err))
 
 	}
 

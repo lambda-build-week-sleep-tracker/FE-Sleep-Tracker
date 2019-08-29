@@ -1,19 +1,24 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 
 const LogEntry = (props) => {
     console.log(props); 
+    const start = new Date(props.logState.sleep_start).toLocaleTimeString();
+    const end = new Date(props.logState.sleep_end).toLocaleTimeString(); 
+    const msSlept = props.logState.sleep_end - props.logState.sleep_start
+    const hrsSlept = msSlept / (1000 * 60 * 60); 
+
     return ( 
-        <div className="log-block-container">
-            <div className="log-block">
-                <input placeholder="Start Time" 
-                value={props.logState.start}/>
+        <>
+            <div className="time-wrapper">
+                <div className="time-field">{start}</div> 
                 <hr className="time-splitter"/>
-                <input placeholder="End Time"
-                value={props.logState.end} />
-                <div className="hoursSlept">{props.logState.hoursSlept}</div>
+                <div className="time-field">{end}</div>
+                <div className="hoursSlept" onClick={props.displayModal}>
+                {Math.floor(hrsSlept)}<br/>Hrs
+                </div>
             </div>
-        </div>
+        </>
     );
 }
  
