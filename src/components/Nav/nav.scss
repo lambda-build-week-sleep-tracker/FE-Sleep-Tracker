@@ -1,0 +1,12 @@
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.8rem;
+
+    .navlink {
+        text-decoration: none;
+        color: grey;
+        margin-right: 10px;
+    }
+}
