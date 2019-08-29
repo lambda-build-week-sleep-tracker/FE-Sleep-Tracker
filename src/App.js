@@ -18,18 +18,10 @@ import SleepLogModal from './components/SleepLog/SleepLogModal';
 function App() {
   return (
     <div className="App">
-<<<<<<< HEAD
-      {/* <Nav /> */}
-      {/* <Home /> */}
-        <LoginForm/> 
-				<SignUpForm/>
-			{/* <Clock/> */}
-=======
       <Route exact path='/' component={LoginForm} />
       <Route path='/signup' component={SignUpForm} />
       <PrivateRoute path='/home' component={Home} />
       <PrivateRoute path='/sleeplog' component={SleepLog} />
->>>>>>> 06a3a4d1c3cc915d26e63658cce912ba07c83b91
     </div>
   );
 }
