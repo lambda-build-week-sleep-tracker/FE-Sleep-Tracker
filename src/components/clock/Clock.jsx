@@ -6,30 +6,44 @@ class ClockApp extends Component {
   state ={
 		startTime: null,
 		endTime: null,
-		h: new Date().getHours(),
-		m: new Date().getMinutes(),
+		h: null,
+		m: null,
+		dh: null,
+		dm: null,
 		session: "AM",
-		dt: null
+	}
+
+	componentDidMount(){
+		setInterval(() => {
+			this.setState({...this.state, h: new Date().getHours(), m: new Date().getMinutes()})
+			console.log(this.state.h, this.state.m)
+			setInterval(this.showTime(), 1000)
+		}, 1000);
 	}
 
 	showTime() {
-
+		
 		// Check for midnight
 		if(this.state.h === 0){
-			this.setState({...this.state, h: 12})
+			this.setState({...this.state, dh: 12})
+		}
+		else{
+			this.setState({...this.state, dh: this.state.h})
 		}
 
 		if (this.state.h > 12){
-
 			// Check if the time is in the afternoon
-			this.setState({...this.state, h: (this.state.h - 12), session: "PM"})
+			this.setState({...this.state, dh: (this.state.h - 12), session: "PM"})
 		}
 
-		// if(this.state.h < 10 ){
+		if(this.state.m < 10){
+			this.setState({...this.state, dm: `0${this.state.m}`});
+		}
+		else{
+			this.setState({...this.state, dm: this.state.m})
+		}
 
-		// }
-
-		let time = `${this.state.h}:${this.state.m}`
+		let time = `${this.state.dh}:${this.state.dm}`
 		
 		this.setState({...this.state, dt: time})
 
@@ -50,7 +64,7 @@ class ClockApp extends Component {
 
 	}
 
-	
+
 
   render() {
     return (
@@ -64,9 +78,17 @@ class ClockApp extends Component {
           <h2>Awake Time</h2>
 					<p>{this.state.endTime}</p>
         </div>
+				<div className="timer">
+					{this.state.dt}
+				</div>
 			</div>
          
-        <button className="StartTimer" name="startTime" onClick={(event) => this.getCurrentTime(event)}>
+				<button className="StartTimer" name="startTime" 
+					onClick={(event) => {
+							this.getCurrentTime(event)
+						}
+
+					}>
 					Start Sleep Timer
 				</button>
  
