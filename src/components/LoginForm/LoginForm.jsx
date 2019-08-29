@@ -2,8 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import { withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
+import { Link } from 'react-router-dom'; 
 // Importing Styles
-import './loginForm.scss'
+// import './loginForm.scss'
 
 
 function LoginForm({ errors, touched, values }) {
@@ -13,7 +14,6 @@ function LoginForm({ errors, touched, values }) {
 			<h2>Login</h2>
 			<div className="form-container">
 				<Form>
-
 					{/* User Name Input */}
 					<label>
 						Email
@@ -31,7 +31,7 @@ function LoginForm({ errors, touched, values }) {
 					<button type="submit">Submit</button>
 				</Form>
 			</div>
-			
+			<Link to='/signup'>Sign Up</Link>
 		</div>
 	)
 }
@@ -50,9 +50,17 @@ const FormikLoginForm  = withFormik({
 		password: Yup.string().required("Password must be filled out")
 	}),
 
-	handleSubmit(values){
+	handleSubmit(values, props){
 		axios
-			.post("URL", values)
+			.post("https://sleeptracker-api.herokuapp.com/auth/login/", values)
+			.then(res => {
+				localStorage.setItem('token', res.data.token)
+				localStorage.setItem('id', res.data.id)
+				console.log(props); 
+				props.props.history.push('/home'); 
+				console.log(res)
+			})
+			.catch(err => console.log(err))
 	}
 })(LoginForm)
 
