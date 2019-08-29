@@ -11,6 +11,7 @@ const LogEntry = (props) => {
                 <hr className="time-splitter"/>
                 <input placeholder="End Time"
                 value={props.logState.end} />
+                <div className="hoursSlept">{props.logState.hoursSlept}</div>
             </div>
         </div>
     );
