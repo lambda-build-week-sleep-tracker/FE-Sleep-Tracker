@@ -1,54 +1,87 @@
-import React, { Fragment } from 'react'; 
+import React, { Fragment, useState, useEffect } from 'react'; 
 
 // Component imports
 import LogEntry from './LogEntry'; 
 
 import './SleepLog.scss'; 
+import axiosWithAuth from '../axiosWithAuth';
+import uuid from 'uuid/v1';  
 
 const SleepLog = () => {
 
-    const timeArr = [
-        {
-            start: '8:30',
-            end: '7:00'
-        },
-        {
-            start: '8:00',
-            end: '6:00'
-        },
-        {
-            start: '5:30',
-            end: '9:00'
-        },
-        {
-            start: '8:30',
-            end: '9:00'
-        },
-        {
-            start: '8:00',
-            end: '8:00'
-        },
-        {
-            start: '7:30',
-            end: '7:00'
-        },
-        {
-            start: '6:30',
-            end: '9:00'
-        },
-        {
-            start: '10:30',
-            end: '10:00'
-        },
+    const [ logState, setLogState ] = useState({
+        
+        childName: "Georgia",
+        timeArr: [
+            {
+                start: '8:30 PM',
+                end: '7:00 AM',
+                hoursSlept: 10.5,
+                childName: "Georgia",
+            },
+            {
+                start: '8:00 PM',
+                end: '6:00 AM',
+                hoursSlept: 10,
+                childName: "Georgia"
+            },
+            {
+                start: '5:30 PM',
+                end: '9:00 AM',
+                hoursSlept: 15.5,
+                childName: "Georgia"
+            },
+            {
+                start: '8:30 PM',
+                end: '9:00 AM',
+                hoursSlept: 11.5,
+                childName: "Georgia"
+            },
+            {
+                start: '8:00 PM',
+                end: '8:00 AM',
+                hoursSlept: 12,
+                childName: "Georgia"
+            },
+            {
+                start: '7:30 PM',
+                end: '7:00 AM',
+                hoursSlept: 11.5,
+                childName: "Georgia"
+            },
+            {
+                start: '6:30 PM',
+                end: '9:00 AM',
+                hoursSlept: 14.5,
+                childName: "Georgia"
+            },
+            {
+                start: '10:30 PM',
+                end: '10:00 AM',
+                hoursSlept: 11.5,
+                childName: "Georgia"
+            },
+        ]
+    })
 
-    ]
+    useEffect(() => {
+        axiosWithAuth()
+            .get('url here')
+            .then(res => {
+                setLogState([
+                    ...logState,
+                    res.data
+                ])
+            })
+            .catch(err => console.log(err))
+    }, [logState])
 
     const today = new Date(); 
 
     return ( 
         <div className="sleep-log">
             <div className="top-section">
-                <p className="top-p">nameVariable has been asleep for <strong>1 hr 20 min</strong></p>
+                <p className="top-p">{`${logState.childName} has been asleep for `}<strong>1 hr 20 min</strong></p>
                 <p className="bottom-p">She should be awake in <strong>4 hr</strong></p>
                 <hr className="divider"/>
             </div>
@@ -58,8 +91,8 @@ const SleepLog = () => {
             </div>
             {/* <LogEntry /> */}
             <div className="time-log">
-                {timeArr.map((time) => (
-                    <LogEntry startTime={time.start} endTime={time.end}/>
+                {logState.timeArr.map((time) => (
+                    <LogEntry logState={time} key={uuid()}/>
                 ))}
             </div>
             <div>
