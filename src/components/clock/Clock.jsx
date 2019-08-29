@@ -1,121 +1,113 @@
 import React, { Component } from 'react';
 import './Clock.scss';
-import axios from 'axios';
-import DigClock from './DigClock'
-
-// Digital Clock
-// let time = new Date().toLocaleString();  
-
-let startTime = [];
-let timerEnd = [];
-// let timerTotal = [];
+// import axios from 'axios';
+import EmojiButtons from './EmojiButtons'
 
 class ClockApp extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // hour: new Date().getHours().toLocaleString(),
-      // minute: new Date().getMinutes().toLocaleString(),
-      startTime: null,
-      endTime: null
-    }
+  state ={
+		startTime: null,
+		endTime: null,
+		h: null,
+		m: null,
+		dh: null,
+		dm: null,
+    session: "AM",
+    mood: null
+	}
+
+	componentDidMount(){
+		setInterval(() => {
+			this.setState({...this.state, h: new Date().getHours(), m: new Date().getMinutes()})
+			console.log(this.state.h, this.state.m)
+			setInterval(this.showTime(), 1000)
+		}, 1000);
+	}
+
+  changeMood=(mood) => {
+    this.setState({...this.state, mood:mood})
   }
 
-  formatHour(hour) {
-    if (hour > 12){
-      return (hour-12);
-    } else if (hour === 0){
-      return (hour + 12);
-    } else {
-      return (hour);
-    }
-  }
-  
-  formatMinute(minute) {
-    if (minute < 10){
-      return ("0"+minute);
-    }
-    else {
-      return (minute);
-    }
-  }
+	showTime() {
+		
+		// Check for midnight
+		if(this.state.h === 0){
+			this.setState({...this.state, dh: 12})
+		}
+		else{
+			this.setState({...this.state, dh: this.state.h})
+		}
 
-  startTimer() {
-    let hour = new Date().getHours().toLocaleString();
-    let minute = new Date().getMinutes().toLocaleString();
-    this.setState({
-      startTime:`${this.formatHour(hour)}:${this.formatMinute(minute)}`
-    });
-    console.log(this.state.startTime);
-    
-  }
-  
-  endTimer(obj) {
-    let hour = new Date().getHours().toLocaleString();
-    let minute = new Date().getMinutes().toLocaleString();
-    this.setState({
-      ...this.state,
-      endTime:`${this.formatHour(hour)}:${this.formatMinute(minute)}`
-  })
-    // this.setState.endTime = `${hour}:${minute}`;
-    console.log(this.setState.endTime);
-    console.log(startTime);
-    obj = timerEnd;
-    return (obj);
-  }
-  
-  logTimer(startTime, timerStop) {
-    axios.post(`https://reqres.in/api/users/`, { startTime, timerStop })
-      .then(res => {
-        // this.setState.startTime;
-        console.log(this.state)
-        console.log(res.data);
-      })
-      .catch(err =>{
-        console.log(err)
-      })
-  }
-    componentDidUpdate(prevProps) {
-      // Typical usage (don't forget to compare props):
-      if (this.props.userID !== prevProps.userID) {
-        this.fetchData(this.props.userID);
-      }
-    }
-    
+		if (this.state.h > 12){
+			// Check if the time is in the afternoon
+			this.setState({...this.state, dh: (this.state.h - 12), session: "PM"})
+		}
+
+		if(this.state.m < 10){
+			this.setState({...this.state, dm: `0${this.state.m}`});
+		}
+		else{
+			this.setState({...this.state, dm: this.state.m})
+		}
+
+		let time = `${this.state.dh}:${this.state.dm}`
+		
+		this.setState({...this.state, dt: time})
+
+	}
+
+	getCurrentTime(event){
+
+		// Hour is set to let bc it is subject to change
+		let currentHour = new Date().getHours()
+		const currentMinute = new Date().getMinutes()
+
+		// Check for midnight, if so change the time to 12
+		if(currentHour === 0){
+			currentHour = 12
+		}
+
+		this.setState({...this.state, [event.target.name]: `${currentHour}:${currentMinute}`})
+
+	}
+
   render() {
     return (
-      <div className="App">
+      <div className="time-container">
         <div className="Row">
         <div className="Start">
-          <h2>Start</h2>
-          {/* <DigClock className="StartClock" /> */}
-          <p>{this.state.startTime}</p>
+          <h2>Start Time</h2>
+					<p>{this.state.startTime}</p>
         </div>
         <div className="Awake">
-          <h2>Awake</h2>
-          {/* <DigClock className="AwakeClock"/> */}
-          <p>{this.state.endTime}</p>
+          <h2>Awake Time</h2>
+					<p>{this.state.endTime}</p>
         </div>
-        </div>
-        <DigClock props= {this.state} />
-        
-        <button className="StartTimer" onClick={() => this.startTimer()}>
-          Start Sleep Timer
-            </button>
+				<div className="timer">
+					{this.state.dt}
+				</div>
+			</div>
+         
+				<button className="StartTimer" name="startTime" 
+					onClick={(event) => {
+							this.getCurrentTime(event)
+						}
 
-        <button className="EndTimer" onClick={() => 
-          this.endTimer()
-        }>
-          End Sleep Timer
-          </button>
+					}>
+					Start Sleep Timer
+				</button>
+ 
+				<button className="EndTimer" name="endTime" onClick={(event) => this.getCurrentTime(event)}>
+         	End Sleep Timer
+				</button>
+{/*
+//         <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
+//         }>
+//           Log Sleep Time
+//           </button> */}
 
-        <button className="LogTime" onClick={() => 
-        this.state.logTimer(this.state.startTime, this.state.endTime)
-        }>
-          Log Sleep Time
-          </button>
-
-
+      <EmojiButtons 
+      setMood= {this.changeMood}
+      />
       </div>
     );
   }
