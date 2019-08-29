@@ -1,6 +1,7 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import './Clock.scss';
-import axios from 'axios';
+// import axios from 'axios';
+import EmojiButtons from './EmojiButtons'
 
 class ClockApp extends Component {
   state ={
@@ -10,7 +11,8 @@ class ClockApp extends Component {
 		m: null,
 		dh: null,
 		dm: null,
-		session: "AM",
+    session: "AM",
+    mood: null
 	}
 
 	componentDidMount(){
@@ -20,6 +22,10 @@ class ClockApp extends Component {
 			setInterval(this.showTime(), 1000)
 		}, 1000);
 	}
+
+  changeMood=(mood) => {
+    this.setState({...this.state, mood:mood})
+  }
 
 	showTime() {
 		
@@ -64,8 +70,6 @@ class ClockApp extends Component {
 
 	}
 
-
-
   render() {
     return (
       <div className="time-container">
@@ -101,7 +105,9 @@ class ClockApp extends Component {
 //           Log Sleep Time
 //           </button> */}
 
-
+      <EmojiButtons 
+      setMood= {this.changeMood}
+      />
       </div>
     );
   }
