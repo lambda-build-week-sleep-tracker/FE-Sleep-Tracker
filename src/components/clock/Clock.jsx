@@ -43,10 +43,6 @@ class ClockApp extends Component {
 			this.setState({...this.state, dm: this.state.m})
 		}
 
-		let time = `${this.state.dh}:${this.state.dm}`
-		
-		this.setState({...this.state, dt: time})
-
 	}
 
 	getCurrentTime(event){
@@ -79,7 +75,7 @@ class ClockApp extends Component {
 					<p>{this.state.endTime}</p>
         </div>
 				<div className="timer">
-					{this.state.dt}
+					{`${this.state.dh}:${this.state.dm}`}
 				</div>
 			</div>
          
