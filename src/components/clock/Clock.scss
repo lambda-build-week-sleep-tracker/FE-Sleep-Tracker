@@ -3,6 +3,7 @@ div {
     flex-direction: column; 
     align-items: center;
     margin-top: 3rem; 
+    font-family: 'Varela Round', sans-serif;
     p{
         display: flex;
         text-align: center; 
@@ -11,18 +12,35 @@ div {
 }
 
 button{
-    width: 100%;
+    width: 45%;
     margin-top: 5rem;
     padding: 2rem;
+    background-color: #b9aeea;
+    border-color: #2F2079
 }
 
 .Row{
     display: flex;
     flex-direction: row; 
-    .Start{
-        padding-right:3rem;
-    }
-    .Awake{
-        padding-left:3rem;
+}
+
+.Start{
+    padding-right:3rem;
+    display: flex;
+    flex-direction: column; 
+    p{
+        padding:3rem;
     }
 }
+
+.Awake{
+    padding-left:3rem;
+    display: flex;
+    flex-direction: column; 
+    p{
+        padding:3rem;
+    }
+}
+ .timer{
+     font-size: 7rem;
+ }
