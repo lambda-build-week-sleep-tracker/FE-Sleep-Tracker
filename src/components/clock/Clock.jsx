@@ -9,7 +9,7 @@ class ClockApp extends Component {
 		h: new Date().getHours(),
 		m: new Date().getMinutes(),
 		session: "AM",
-		dm: null
+		dt: null
 	}
 
 	showTime() {
@@ -31,11 +31,11 @@ class ClockApp extends Component {
 
 		let time = `${this.state.h}:${this.state.m}`
 		
-		this.setState({...this.state, dm: time})
+		this.setState({...this.state, dt: time})
 
 	}
 
-	startTime(){
+	getCurrentTime(event){
 
 		// Hour is set to let bc it is subject to change
 		let currentHour = new Date().getHours()
@@ -46,9 +46,11 @@ class ClockApp extends Component {
 			currentHour = 12
 		}
 
-		this.setState({...this.state, startTime: `${currentHour}:${currentMinute}`})
+		this.setState({...this.state, [event.target.name]: `${currentHour}:${currentMinute}`})
 
 	}
+
+	
 
   render() {
     return (
@@ -60,19 +62,18 @@ class ClockApp extends Component {
         </div>
         <div className="Awake">
           <h2>Awake Time</h2>
-
+					<p>{this.state.endTime}</p>
         </div>
 			</div>
          
-        <button className="StartTimer" onClick={() => this.startTime()}>
+        <button className="StartTimer" name="startTime" onClick={(event) => this.getCurrentTime(event)}>
 					Start Sleep Timer
 				</button>
-{/* 
-//         <button className="EndTimer" onClick={() => endTimer(this.state.endTime)
-//         }>
-//           End Sleep Timer
-//           </button>
-
+ 
+				<button className="EndTimer" name="endTime" onClick={(event) => this.getCurrentTime(event)}>
+         	End Sleep Timer
+				</button>
+{/*
 //         <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
 //         }>
 //           Log Sleep Time
