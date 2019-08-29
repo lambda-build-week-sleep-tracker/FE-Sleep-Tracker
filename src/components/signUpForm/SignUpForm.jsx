@@ -1,105 +1,91 @@
-import React, { useState } from 'react'
+import React from 'react'
 import axios from 'axios'
+import { withFormik, Field, Form } from 'formik'
+import * as Yup from 'yup'
 
-function SignUpForm() {
+function SignUpForm({ touched, errors, values }) {
 
-	const [newUser, setNewUser] = useState({
-		newUserName: "",
-		newUserEmail:"",
-		newUserPassword:"",
-		newChildName: "",
-		newChildBirthday: ""
-	})
-
-
-	const changeHandler = event => {
-		console.log("THIS IS THE EVENT VALUE ", event.target.value)
-		console.log("THIS IS THE NAME OF THE TARGET", event.target.name)
-		setNewUser({...newUser, [event.target.name]: event.target.value})
-	}
-
-	const submitForm = event => {
-		event.preventDefault()
-		/* 
-		axios
-			.post(newUser)
-			.then(() => {
-				setUser({
-					newUserName: "",
-					newUserEmail:"",
-					newUserPassword:"",
-					newChildName: "",
-					newChildBirthday: ""
-				})
-			})
-		*/
-	}
-
-
-	return(
+	return (
 		<div className="signUp-container">
 			<h2>Sign Up</h2>
 			<div className="form-container">
-				<form>
+				<Form>
 					{/* New User Name */}
-					<label htmlFor="newUserName">User Name</label>
-					<input 
-						type="text" 
-						name="newUserName" 
-						placeholder="John Doe"
-						required
-						value={newUser.newUserName}
-						onChange={changeHandler}
-						/>
+					<label>
+						User Name
+						<Field type="text" name="newUserName" placeholder="John Doe" />
+						{touched.newUserName && errors.newUserName && <p>{errors.newUserName}</p> }
+						</label>
 
 					{/* New User Email */}
-					<label htmlFor="newUserEmail">Email</label>
-					<input 
-						type="email"
-						name="newUserEmail"
-						placeholder="JohDoe@gmail.com"
-						value={newUser.newUserEmail}
-						onChange={changeHandler}
-						required
-						/>
+					<label>
+						Email:
+						<Field type="email" name="newUserEmail" placeholder="JohDoe@gmail.com"/>
+						{touched.newUserEmail && errors.newUserEmail && <p>{errors.newUserEmail}</p> }
+					</label>
+					
 
 					{/* Password */}
-					<label htmlFor="newUserPassword">Password</label>
-					<input 
-						type="password"
-						name="newUserPassword"
-						placeholder="Password"
-						value={newUser.newUserPassword}
-						onChange={changeHandler}
-						pattern="^(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*\d.*)[a-zA-Z\d]{8,}$"
-						required
-						/>
+					<label>
+						Password
+						<Field type="password" name="newUserPassword" placeholder="Password"/>
+						{ touched.newUserPassword && errors.newUserPassword && <p>{errors.newUserPassword}</p> }
+							{/* pattern="^(?=.*[a-z].*)(?=.*[A-Z].*)(?=.*\d.*)[a-zA-Z\d]{8,}$" */}
+					</label>
+					
 					
 					{/* Child Name */}
-					<label htmlFor="newChildName">Child Name</label>
-					<input 
-						type="text"
-						name="newChildName"
-						placeholder="John Doe Jr"
-						value={newUser.newChildName}
-						onChange={changeHandler}
-						/>
+					<label>
+						Child Name
+						<Field type="text" name="newChildName" placeholder="John Doe Jr"/>
+						{ touched.newChildName && errors.newChildName && <p>{errors.newChildName}</p> }
+					</label>
+					
 
 					{/* Child Birthdat */}
-					<label htmlFor="newChildBirthday">What is your Childs Birthday</label>
-					<input 
-						type="date" 
-						name="newChildBirthday" 
-						min="2000-01-01"
-						value={newUser.newChildBirthday}
-						onChange={changeHandler}
-						/>
+					<label>
+						What is your Childs Birthday
+						<Field type="date" name="newChildBirthday" min="2000-01-01"/>
+						{ touched.newChildBirthday && errors.newChildBirthday && <p>{errors.newChildBirthday}</p> }
+					</label>
 
-					<button type="submit" onClick={submitForm}>Submit</button>
-				</form>
+					<button type="submit">Submit</button>
+				</Form>
 			</div>
 		</div>
 	)
 }
 
-export default SignUpForm
+const FormikSignUpForm = withFormik({
+	
+	// Decalring prop names that are assigned to formiks values prop
+	mapPropsToValues({newUserName, newUserEmail, newUserPassword, newChildName, newChildBirthday}){
+		return {
+			// State Values
+			newUserName: newUserName || "",
+			newUserEmail: newUserEmail || "",
+			newUserPassword: newUserPassword || "",
+			newChildName: newChildName || "",
+			newChildBirthday: newChildBirthday || ""
+		}
+	},
+
+	// YUP validation
+	validationSchema: Yup.object().shape({
+		newUserName: Yup.string().required("You must enter a user name"),
+		newUserEmail: Yup.string().email().required("You must enter in a email"),
+		newUserPassword: Yup.string().min(8,"Your password must be atleast 8 characters long").required("You must enter in a password"),
+		newChildName: Yup.string().required("What did you not give your child a name..."),
+		newChildBirthday: Yup.string().required("You must set a brithday")
+	}),
+
+	// Handling Form Submission
+	handleSubmit(values,  { resetForm }){
+		axios
+			.post("URL", values)
+			.then( () => resetForm() )
+	}
+
+})(SignUpForm)
+
+export default FormikSignUpForm

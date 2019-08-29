@@ -14,10 +14,17 @@ import Nav from './components/Nav/Nav'
 function App() {
   return (
     <div className="App">
+<<<<<<< HEAD
       <Nav />
       <Home />
       {/* <LoginForm/> 
 			<SignUpForm/> */}
+=======
+        <p>App Component</p>
+        <LoginForm/> 
+        <SignUpForm/>
+        {/* <SleepLog /> */}
+>>>>>>> 1556c0c8fab32fe56bb2d2c87e39399a12e7701d
     </div>
   );
 }

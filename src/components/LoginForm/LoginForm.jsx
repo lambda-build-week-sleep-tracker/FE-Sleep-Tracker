@@ -1,57 +1,59 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
+import { withFormik, Form, Field} from 'formik'
+import * as Yup from 'yup'
 // Importing Styles
 import './loginForm.scss'
 
 
-function LoginForm() {
-
-	const [user, setUser] = useState({userName: "", password: ""})
-
-	const changeHandler = event => {
-		console.log("TARGET NAME IS", event.target.name)
-		console.log(event.target.value)
-		setUser({...user, [event.target.name]: event.target.value})
-	}
-
-	const formSubmit = event => {
-		event.prevetDefault()
-		// axios.post(user)
-	}
+function LoginForm({ errors, touched, values }) {
 
 	return(
 		<div className="login-container">
 			<h2>Login</h2>
 			<div className="form-container">
-				<form>
-				{/* User Name Input */}
-				<label htmlFor="userName">User Name</label>
-				<input 
-					type="text" 
-					name="userName" 
-					id="userName" 
-					required 
-					placeholder="John Doe"
-					onChange={changeHandler}
-					/>
+				<Form>
 
-				{/* Password */}
-				<label htmlFor="password">Password</label>
-				<input 
-					type="password" 
-					name="password" 
-					id="password" 
-					required 
-					placeholder="Enter Password"
-					onChange={changeHandler}
-					/>
+					{/* User Name Input */}
+					<label>
+						Email
+						<Field type="text" name="email" placeholder="JohnDoe@gmail.com"/>
+						{ touched.email && errors.email && <p>{errors.email}</p> }
+					</label>
 
-				<button type="submit" onClick={formSubmit}>Submit</button>
-				</form>
+					{/* Password */}
+					<label>
+						Password
+						<Field type="password" name="password" placeholder="Enter Password"/>
+						{ touched.password && errors.password && <p>{errors.password}</p> }
+					</label>
+
+					<button type="submit">Submit</button>
+				</Form>
 			</div>
 			
 		</div>
 	)
 }
 
-export default LoginForm;
+const FormikLoginForm  = withFormik({
+	mapPropsToValues({email, password}){
+		return{
+			email: email || "",
+			password: password || ""
+		}
+	},
+
+	// Yup validation
+	validationSchema: Yup.object().shape({
+		email: Yup.string().email().required("Email must be filled out"),
+		password: Yup.string().required("Password must be filled out")
+	}),
+
+	handleSubmit(values){
+		axios
+			.post("URL", values)
+	}
+})(LoginForm)
+
+export default FormikLoginForm;
