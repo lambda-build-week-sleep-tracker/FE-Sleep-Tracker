@@ -11,8 +11,34 @@ import {
 import 'react-vis/dist/style.css';
 import './graph.scss';
 
+// Can't figure out how to make the graph responsive through the
+// react-vis documentation so let's use window.innerWidth to set the graph width
+function useWindowDimensions() {
+  const [width, setWidth] = React.useState(window.innerWidth);
+
+  React.useEffect(() => {
+    const listener = () => {
+      setWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', listener);
+    return () => window.removeEventListener('resize', listener);
+  });
+  return { width };
+}
+
 function Graph() {
   const [sleepData, setSleepData] = useState([]);
+  const { width } = useWindowDimensions();
+
+  // graphWidth is the smaller of 700px or 100% width
+  let graphWidth, graphHeight;
+  if (width > 740) {
+    graphWidth = 700;
+    graphHeight = 700 / 1.5;
+  } else {
+    graphWidth = width;
+    graphHeight = graphWidth / 1.5;
+  }
 
   // TODO: Change the id to be dynamic based on localStorage
   useEffect(() => {
@@ -46,17 +72,16 @@ function Graph() {
   }
 
   return (
-    <div>
+    <div className="graph" style={{ width: width }}>
       <XYPlot
         xType="time"
-        width={600}
-        height={400}
+        width={graphWidth}
+        height={graphHeight}
         // animation
-        margin={{ left: 50 }}
       >
         <HorizontalGridLines />
         <VerticalGridLines />
-        <XAxis title="Date" />
+        <XAxis title="Date" tickTotal={8} />
         <YAxis title="Hours" />
         <LineSeries data={graphData} />
       </XYPlot>
