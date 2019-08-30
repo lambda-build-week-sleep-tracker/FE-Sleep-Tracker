@@ -24,7 +24,6 @@ function App() {
       <PrivateRoute path='/timer' component={Clock} />
       <PrivateRoute path='/home' component={Home} />
       <PrivateRoute path='/sleeplog' component={SleepLog} />
-      {/* <Clock/> */}
     </div>
   );
 }
