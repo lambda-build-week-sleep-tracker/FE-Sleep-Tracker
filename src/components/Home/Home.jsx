@@ -5,7 +5,7 @@ import Graph from '../Graph/Graph'
 
 function Home() {
     
-    const [childName, setChildName] = useState(localStorage.getItem(childObj.child_name))
+    const [childName, setChildName] = useState(localStorage.getItem("childObj.data.child_name"))
     
     return (
         <div className="home">

@@ -2,15 +2,17 @@ import React from 'react'
 import axios from 'axios'
 import { withFormik, Field, Form } from 'formik'
 import * as Yup from 'yup'
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+
+import './signUpForm.scss'
 
 function SignUpForm({ touched, errors, values }) {
 
 	return (
 		<div className="signUp-container">
-			<h2>Sign Up</h2>
 			<div className="form-container">
-				<Form>
+				<h2>Sign Up</h2>
+				<Form className="formik-form">
 					{/* New User Name */}
 					<label>
 						User Name
@@ -52,7 +54,10 @@ function SignUpForm({ touched, errors, values }) {
 
 					<button type="submit">Submit</button>
 				</Form>
-				<p>Already have an account? <Link to='/'>Login</Link></p>
+				<div className="logIn-container">
+					<p>Already have an account? <Link to='/' className="logIn">Login</Link></p>
+				</div>
+				
 			</div>
 		</div>
 	)
