@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './Clock.scss';
-// import axios from 'axios';
 import EmojiButtons from './EmojiButtons'
 
 class ClockApp extends Component {
   state ={
-		startTime: null,
-		endTime: null,
+		startTime: "--:--",
+		endTime: "--:--",
 		h: null,
 		m: null,
 		dh: null,
@@ -64,6 +63,10 @@ class ClockApp extends Component {
 		// Check for midnight, if so change the time to 12
 		if(currentHour === 0){
 			currentHour = 12
+    }
+    if (currentHour > 12){
+			// Check if the time is in the afternoon
+			currentHour = currentHour - 12
 		}
 
 		this.setState({...this.state, [event.target.name]: `${currentHour}:${currentMinute}`})
@@ -82,10 +85,11 @@ class ClockApp extends Component {
           <h2>Awake Time</h2>
 					<p>{this.state.endTime}</p>
         </div>
+        </div>
 				<div className="timer">
 					{this.state.dt}
 				</div>
-			</div>
+
          
 				<button className="StartTimer" name="startTime" 
 					onClick={(event) => {
@@ -99,11 +103,10 @@ class ClockApp extends Component {
 				<button className="EndTimer" name="endTime" onClick={(event) => this.getCurrentTime(event)}>
          	End Sleep Timer
 				</button>
-{/*
-//         <button className="LogTime" onClick={() => logTimer(this.state.startTime, this.state.endTime)
-//         }>
-//           Log Sleep Time
-//           </button> */}
+
+        <button className="LogTime" >
+          Log Sleep Time
+         </button>
 
       <EmojiButtons 
       setMood= {this.changeMood}
