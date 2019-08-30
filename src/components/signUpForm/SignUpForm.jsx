@@ -82,7 +82,7 @@ const FormikSignUpForm = withFormik({
 	}),
 
 	// Handling Form Submission
-	handleSubmit(values){
+	handleSubmit(values, props){
 		
 		// Formatting the birtrhday to an ISO string for the DB
 		const childBirthday = new Date(values.newChildBirthday).getTime()
@@ -94,6 +94,7 @@ const FormikSignUpForm = withFormik({
 		axios
 			.post("https://sleeptracker-api.herokuapp.com/auth/register", newValues)
 			.then((res) => {
+				props.props.history.push('/home')
 				console.log(res)
 			})
 			.catch(err => console.log(err))

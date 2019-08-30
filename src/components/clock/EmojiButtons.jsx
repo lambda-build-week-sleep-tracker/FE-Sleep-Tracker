@@ -3,14 +3,13 @@ import './EmojiButtons.scss';
 
 export default function EmojiButtons(props) {
     const value = {};
-    const [mood,setMood] = useState(0);
+    const [mood,setMood] = useState(null);
     // useEffect(() => {},[mood]) 
     function handleSubmit(num) {
         setMood(num);
         props.setMood(mood)
     }
-    console.log(props)
-
+    
     return (
       <div className="emoji">
         <button 
