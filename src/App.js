@@ -21,13 +21,8 @@ function App() {
       {/* <Route exact path='/' component={LoginForm} />
       <Route path='/signup' component={SignUpForm} />
       <PrivateRoute path='/home' component={Home} />
-<<<<<<< HEAD
-      <PrivateRoute path='/sleeplog' component={SleepLog} />
-			<Clock/>
-=======
       <PrivateRoute path='/sleeplog' component={SleepLog} /> */}
       <Clock/>
->>>>>>> 4b4e6920007bff157a88e966241bdf498be22129
     </div>
   );
 }

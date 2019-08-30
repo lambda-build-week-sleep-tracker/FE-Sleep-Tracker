@@ -100,9 +100,6 @@ class ClockApp extends Component {
          	End Sleep Timer
 				</button>
 
-<<<<<<< HEAD
-      <EmojiButtons setMood= {this.changeMood}/>
-=======
         <button className="LogTime" >
           Log Sleep Time
          </button>
@@ -110,7 +107,6 @@ class ClockApp extends Component {
       <EmojiButtons 
       setMood= {this.changeMood}
       />
->>>>>>> 4b4e6920007bff157a88e966241bdf498be22129
       </div>
     );
   }
