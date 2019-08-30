@@ -4,16 +4,16 @@ import { withFormik, Form, Field} from 'formik'
 import * as Yup from 'yup'
 import { Link } from 'react-router-dom'; 
 // Importing Styles
-// import './loginForm.scss'
+import './loginForm.scss'
 
 
 function LoginForm({ errors, touched, values }) {
 
 	return(
 		<div className="login-container">
-			<h2>Login</h2>
 			<div className="form-container">
-				<Form>
+				<Form className="formik-form">
+					<h2>Login</h2>
 					{/* User Name Input */}
 					<label>
 						Email
@@ -30,8 +30,8 @@ function LoginForm({ errors, touched, values }) {
 
 					<button type="submit">Submit</button>
 				</Form>
+				<Link className="signUp" to='/signup'>Sign Up</Link>
 			</div>
-			<Link to='/signup'>Sign Up</Link>
 		</div>
 	)
 }

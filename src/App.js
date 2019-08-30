@@ -22,7 +22,9 @@ function App() {
       <Route path='/signup' component={SignUpForm} />
       <PrivateRoute path='/home' component={Home} />
       <PrivateRoute path='/sleeplog' component={SleepLog} /> */}
-      <Clock/>
+			{/* <Clock/> */}
+			<LoginForm />
+			<SignUpForm />
     </div>
   );
 }
