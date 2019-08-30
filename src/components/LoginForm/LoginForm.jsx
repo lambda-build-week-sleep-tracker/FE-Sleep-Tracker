@@ -12,8 +12,8 @@ function LoginForm({ errors, touched, values }) {
 	return(
 		<div className="login-container">
 			<div className="form-container">
+				<h2>Login</h2>
 				<Form className="formik-form">
-					<h2>Login</h2>
 					{/* User Name Input */}
 					<label>
 						Email
@@ -30,7 +30,9 @@ function LoginForm({ errors, touched, values }) {
 
 					<button type="submit">Submit</button>
 				</Form>
-				<Link className="signUp" to='/signup'>Sign Up</Link>
+				<div className="signUp-container">
+					<Link className="signUp" to='/signup'>Sign Up</Link>
+				</div>
 			</div>
 		</div>
 	)

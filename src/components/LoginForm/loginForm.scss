@@ -6,30 +6,34 @@
 	height: 100vh;
 	display: flex;
 	align-items: center;
+	background-color: #f2f2f2;
 
 	.form-container{
-		border: 2px solid orange;
+		// border: 2px solid orange;
 		width: 80%;
 		margin: 0 auto;
 
+		h2{
+			font-size: 4rem;
+			text-align: center;
+			font-family: "Lato";
+			font-weight: bold;
+		}
+
 		.formik-form{
-			border: 2px solid purple;
+			// border: 2px solid purple;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			padding: 2rem 0;
-
-			h2{
-				font-size: 4rem;
-				text-align: center;
-			}
+			padding: 1rem 0;
 
 			label{
 				display: flex;
 				flex-direction: column;
 				margin-bottom: 2rem;
-				font-size: 2rem;
+				font-size: 2.5rem;
 				font-family: "Lato";
+				font-weight: bold;
 
 				input{
 					height: 3rem;
@@ -49,12 +53,13 @@
 				width: 20%;
 				border-radius: 5px;
 				background-color: #6558F5;
-				border-color: #6558F5;
+				border: 3px solid  #6558F5;
 				color: white;
 				font-size: 2rem;
 				letter-spacing: 1.3px;
 				transition: .7s;
 				font-weight: bold;
+				font-family: "Lato";
 				&:hover{
 					color: #6558F5;
 					background-color: white;
@@ -63,17 +68,32 @@
 			}
 		}
 
-		.signUp{
-			text-align: right;
-			display: block;
-			font-size: 2rem;
-			text-decoration: none;
-			color: black;
-			background: #6558F5;
-			width: 20%;
-			margin: 0 auto;
-			margin-top: 2rem;
+		.signUp-container{
+			display: flex;
+			justify-content: center;
+			.signUp{
+				padding: .5rem .3rem;
+				width: 20%;
+				border-radius: 5px;
+				background-color: #6558F5;
+				border: 3px solid #6558F5;
+				color: white;
+				font-size: 2rem;
+				letter-spacing: 1.3px;
+				transition: .7s;
+				font-weight: bold;
+				text-decoration: none;
+				text-align: center;
+				font-family: "Lato";
+				&:hover{
+					color: #6558F5;
+					background-color: white;
+					transition: .7s;
+				}
+			}
 		}
+
+		
 
 	}
 }
