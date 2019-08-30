@@ -3,13 +3,22 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 2.8rem;
+    font-family: 'Varela Round', sans-serif;
     
-    .emoji-holder {
-        display: flex;
+    .log-time {
+        background: #B9AEEA;
+        border: 3px solid #604ACF;
+        padding: 20px;
+        margin: 35px;
     }
-
+    
     a {
         display: block;
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+        margin: 20px;
     }
 }
 

@@ -1,3 +1,98 @@
-.login-container{
-	border: 2px solid red;
+.login-container {
+  border: 2px solid #6558f5;
+  border-radius: 5px;
+  width: 80rem;
+  margin: 0 auto;
+  padding-top: 2rem;
+  height: 95vh;
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+
+  .form-container {
+    // border: 2px solid orange;
+    width: 80%;
+    margin: 0 auto;
+
+    h2 {
+      font-size: 4rem;
+      text-align: center;
+      font-family: 'Lato';
+      font-weight: bold;
+    }
+
+    .formik-form {
+      // border: 2px solid purple;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem 0;
+
+      label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        font-family: 'Lato';
+        font-weight: bold;
+
+        input {
+          height: 3rem;
+          margin: 1rem 0;
+          border-radius: 5px;
+        }
+
+        p {
+          text-transform: capitalize;
+          font-family: 'Lato';
+          font-weight: bold;
+          color: #721c24;
+        }
+      }
+
+      button {
+        padding: 0.5rem 0.3rem;
+        width: 20%;
+        border-radius: 5px;
+        background-color: #6558f5;
+        border: 3px solid #6558f5;
+        color: white;
+        font-size: 2rem;
+        letter-spacing: 1.3px;
+        transition: 0.7s;
+        font-weight: bold;
+        font-family: 'Lato';
+        &:hover {
+          color: #6558f5;
+          background-color: white;
+          transition: 0.7s;
+        }
+      }
+    }
+
+    .signUpButton-container{
+      display: flex;
+      justify-content: center;
+      .signUp {
+        padding: 0.5rem 0.3rem;
+        width: 20%;
+        border-radius: 5px;
+        background-color: #6558f5;
+        border: 3px solid #6558f5;
+        color: white;
+        font-size: 2rem;
+        letter-spacing: 1.3px;
+        transition: 0.7s;
+        font-weight: bold;
+        text-decoration: none;
+        text-align: center;
+        font-family: 'Lato';
+        &:hover {
+          color: #6558f5;
+          background-color: white;
+          transition: 0.7s;
+        }
+      }
+    }
+  }
 }

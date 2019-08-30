@@ -50,10 +50,6 @@ class ClockApp extends Component {
 			this.setState({...this.state, dm: this.state.m})
 		}
 
-		let time = `${this.state.dh}:${this.state.dm}`
-		
-		this.setState({...this.state, dt: time})
-
 	}
 
 	 getCurrentsleep_start=() => {
