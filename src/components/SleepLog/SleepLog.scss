@@ -9,6 +9,7 @@
     max-width: 950px; 
 
     .top-section { 
+        margin-bottom: 10rem; 
 
         .top-p {
             margin-bottom: 1rem;
@@ -19,7 +20,7 @@
             font-size: 1.5rem; 
         }
         
-        hr { 
+        .top-divider { 
             margin: 0 auto; 
             margin-top: 3rem; 
             margin-bottom: 3rem; 
@@ -29,7 +30,7 @@
 
     }
 
-    h1 {
+    .header {
         color: black; 
         font-size: 2.8rem; 
     }
@@ -78,7 +79,7 @@
                 background: darkgray; 
                 color: darkgray; 
                 border: 1px solid darkgray; 
-                margin-top: 2rem; 
+                margin-top: 6rem; 
             }
 
             .hoursSlept {
@@ -231,10 +232,11 @@
 
     
 
-    div {
+    .bottom-divider {
         display: flex;
         flex-direction: column;  
         align-items: center;
+        margin-top: 10rem; 
         
 
     }
