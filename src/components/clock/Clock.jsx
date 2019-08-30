@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Clock.scss';
-
+import axiosWithAuth from '../axiosWithAuth';
 
 class ClockApp extends Component {
   state ={
@@ -11,32 +11,22 @@ class ClockApp extends Component {
 		dh: null,
 		dm: null,
     session: "AM",
-    mood: null,
     displayStart: '--:--',
-    displayAwake:'--:--'
+    displayAwake:'--:--',
+    key: null
 	}
 
 	componentDidMount(){
+    this.setState({...this.state, key: localStorage.getItem("id")})
 		setInterval(() => {
 			this.setState({...this.state, h: new Date().getHours(), m: new Date().getMinutes()})
       // console.log(this.state.mood)
+      
 			setInterval(this.showTime(), 1000)
     }, 1000);
     // this.displayTime();
 	}
-  // shouldComponentUpdate(nextState){
-  //   if (this.state.mood !== nextState.mood){
-  //     console.log("COMPONENTUPDATED")
-  //     return true;
-      
-  //   }
-  //   console.log("did not")
-  //   return false;
-  // }
 
-  // changeMood=(mood) => {
-  //   this.setState(({...this.state, mood:mood}))
-  // }
 
 	showTime() {
 		
@@ -130,6 +120,18 @@ class ClockApp extends Component {
     await this.displayEndTime();
     this.getCurrentEndTime()
   }
+
+  logTime(key, start, stop){
+    axiosWithAuth()
+    .post("https://sleeptracker-api.herokuapp.com/api/sleep/", {key, start, stop})
+    .then(res => {
+      console.log(res.data);
+      
+    })
+    .catch(err => console.log(err))
+}
+  
+
   render() {
     return (
       <div className="time-container">
@@ -156,7 +158,7 @@ class ClockApp extends Component {
          	End Sleep Timer
 				</button>
 
-        <button className="LogTime" >
+        <button className="LogTime"  onClick={() => this.logTime(this.key, this.startTime, this.endTime)}>
           Log Sleep Time
          </button>
 
