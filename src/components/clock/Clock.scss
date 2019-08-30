@@ -1,3 +1,20 @@
+// div {
+//     display: flex;
+//     flex-direction: column; 
+//     align-items: center;
+//     margin-top: 3rem; 
+//     p{
+//         display: flex;
+//         text-align: center; 
+//         font-size: 5rem;
+//     }
+// }
+
+// button{
+//     width: 100%;
+//     margin-top: 5rem;
+//     padding: 2rem;
+// }
 .time-container, .Row, .Start, .Awake, .timer {
     display: flex;
     flex-direction: column; 
@@ -22,25 +39,10 @@
 .Row{
     display: flex;
     flex-direction: row; 
-}
-
-.Start{
-    padding-right:3rem;
-    display: flex;
-    flex-direction: column; 
-    p{
-        padding:3rem;
+    .Start{
+        padding-right:3rem;
+    }
+    .Awake{
+        padding-left:3rem;
     }
 }
-
-.Awake{
-    padding-left:3rem;
-    display: flex;
-    flex-direction: column; 
-    p{
-        padding:3rem;
-    }
-}
- .timer{
-     font-size: 7rem;
- }
