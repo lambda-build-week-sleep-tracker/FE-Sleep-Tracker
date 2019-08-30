@@ -2,12 +2,8 @@ div {
     display: flex;
     flex-direction: column;
     align-items: center;
-<<<<<<< HEAD
-    margin-top: 3rem;
-=======
     margin-top: 3rem; 
     font-family: 'Varela Round', sans-serif;
->>>>>>> 4b4e6920007bff157a88e966241bdf498be22129
     p{
         display: flex;
         text-align: center;
@@ -25,11 +21,6 @@ button{
 
 .Row{
     display: flex;
-<<<<<<< HEAD
-    flex-direction: row;
-    .Start{
-        padding-right:3rem;
-=======
     flex-direction: row; 
 }
 
@@ -39,7 +30,6 @@ button{
     flex-direction: column; 
     p{
         padding:3rem;
->>>>>>> 4b4e6920007bff157a88e966241bdf498be22129
     }
 }
 

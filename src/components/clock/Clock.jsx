@@ -104,9 +104,7 @@ class ClockApp extends Component {
           Log Sleep Time
          </button>
 
-      <EmojiButtons 
-      setMood= {this.changeMood}
-      />
+      	<EmojiButtons setMood= {this.changeMood}/>
       </div>
     );
   }
