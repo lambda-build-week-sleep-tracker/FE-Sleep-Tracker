@@ -50,10 +50,6 @@ class ClockApp extends Component {
 			this.setState({...this.state, dm: this.state.m})
 		}
 
-		let time = `${this.state.dh}:${this.state.dm}`
-		
-		this.setState({...this.state, dt: time})
-
 	}
 
 	 getCurrentStartTime=() => {
@@ -146,7 +142,7 @@ class ClockApp extends Component {
         </div>
         </div>
 				<div className="timer">
-					{this.state.dt}
+					{`${this.state.dh}:${this.state.dm}`}
 				</div>
 
          
@@ -161,7 +157,6 @@ class ClockApp extends Component {
         <button className="LogTime"  onClick={() => this.logTime(this.key, this.startTime, this.endTime)}>
           Log Sleep Time
          </button>
-
 
       </div>
     );
