@@ -19,12 +19,11 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      {/* <Route exact path='/' component={LoginForm} />
+      <Route exact path='/' component={LoginForm} />
       <Route path='/signup' component={SignUpForm} />
+      <PrivateRoute path='/timer' component={Clock} />
       <PrivateRoute path='/home' component={Home} />
-      <PrivateRoute path='/sleeplog' component={SleepLog} /> */}
-      {/* <Clock/> */}
-      <Home />
+      <PrivateRoute path='/sleeplog' component={SleepLog} />
     </div>
   );
 }

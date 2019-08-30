@@ -10,7 +10,6 @@ export default function EmojiButtons(props) {
         props.setMood(mood)
     }
     
-
     return (
       <div className="emoji">
         <button 

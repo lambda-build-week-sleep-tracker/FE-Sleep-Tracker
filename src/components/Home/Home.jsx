@@ -11,7 +11,7 @@ function Home() {
         <div className="home">
             <div className='log-time'>Log New Sleep Time</div>
             <Link to='/sleeplog'>My Sleep Log</Link>
-            <p>{`${childName}' Tends to be in the best mood when they have slept for about 10hrs`}</p>
+            <p>{`${childName ? 'unnamed' : childName}' Tends to be in the best mood when they have slept for about 10hrs`}</p>
             <div className="graph-container">
                 {/* <input type="text"/> */}
                 <Graph />

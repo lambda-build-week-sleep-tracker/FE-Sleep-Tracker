@@ -22,25 +22,10 @@
 .Row{
     display: flex;
     flex-direction: row; 
-}
-
-.Start{
-    padding-right:3rem;
-    display: flex;
-    flex-direction: column; 
-    p{
-        padding:3rem;
+    .Start{
+        padding-right:3rem;
+    }
+    .Awake{
+        padding-left:3rem;
     }
 }
-
-.Awake{
-    padding-left:3rem;
-    display: flex;
-    flex-direction: column; 
-    p{
-        padding:3rem;
-    }
-}
- .timer{
-     font-size: 7rem;
- }
