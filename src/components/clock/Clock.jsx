@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Clock.scss';
-import EmojiButtons from './EmojiButtons'
+
 
 class ClockApp extends Component {
   state ={
@@ -19,16 +19,24 @@ class ClockApp extends Component {
 	componentDidMount(){
 		setInterval(() => {
 			this.setState({...this.state, h: new Date().getHours(), m: new Date().getMinutes()})
-      console.log(this.state.h, this.state.m)
-      
+      // console.log(this.state.mood)
 			setInterval(this.showTime(), 1000)
     }, 1000);
-    this.displayTime();
+    // this.displayTime();
 	}
+  // shouldComponentUpdate(nextState){
+  //   if (this.state.mood !== nextState.mood){
+  //     console.log("COMPONENTUPDATED")
+  //     return true;
+      
+  //   }
+  //   console.log("did not")
+  //   return false;
+  // }
 
-  changeMood=(mood) => {
-    this.setState({...this.state, mood:mood})
-  }
+  // changeMood=(mood) => {
+  //   this.setState(({...this.state, mood:mood}))
+  // }
 
 	showTime() {
 		
@@ -58,7 +66,7 @@ class ClockApp extends Component {
 
 	}
 
-	 getCurrentTime=() => {
+	 getCurrentStartTime=() => {
 
 		let currentTime = new Date().getTime()
 
@@ -66,7 +74,15 @@ class ClockApp extends Component {
 
 	}
 
-  displayTime=()=>{
+  getCurrentEndTime=() => {
+
+		let currentTime = new Date().getTime()
+
+		this.setState({...this.state, ["endTime"]: currentTime})
+
+	}
+
+  displayStartTime=()=>{
     let displayHour = new Date().getHours()
 		let displayMinute = new Date().getMinutes()
 
@@ -82,15 +98,38 @@ class ClockApp extends Component {
 			// Check if the minute is under 10 and add a 0
 			displayMinute = ("0"+displayMinute)
     }
-    this.getCurrentTime()
     this.setState({...this.state, ["displayStart"]: `${displayHour}:${displayMinute}`});
   }
 
-  startTimeHandler(){
-    this.displayTime();
-    this.getCurrentTime()
+  displayEndTime=()=>{
+    let displayHour = new Date().getHours()
+		let displayMinute = new Date().getMinutes()
+
+    		// Check for midnight, if so change the time to 12
+		if(displayHour === 0){
+			displayHour = 12
+    }
+    if (displayHour > 12){
+			// Check if the time is in the afternoon
+			displayHour = displayHour - 12
+    }
+    if (displayMinute < 10){
+			// Check if the minute is under 10 and add a 0
+			displayMinute = ("0"+displayMinute)
+    }
+
+    this.setState({...this.state, ["displayAwake"]: `${displayHour}:${displayMinute}`});
   }
 
+  async startTimeHandler(){
+    await this.displayStartTime();
+    this.getCurrentStartTime()
+  }
+
+  async awakeTimeHandler(){
+    await this.displayEndTime();
+    this.getCurrentEndTime()
+  }
   render() {
     return (
       <div className="time-container">
@@ -113,7 +152,7 @@ class ClockApp extends Component {
 					Start Sleep Timer
 				</button>
  
-				<button className="EndTimer" name="endTime" onClick={(event) => this.getCurrentTime(event)}>
+				<button className="EndTimer" name="endTime" onClick={() => this.awakeTimeHandler()}>
          	End Sleep Timer
 				</button>
 
@@ -121,9 +160,7 @@ class ClockApp extends Component {
           Log Sleep Time
          </button>
 
-      <EmojiButtons 
-      setMood= {this.changeMood}
-      />
+
       </div>
     );
   }
