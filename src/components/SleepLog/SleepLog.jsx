@@ -54,7 +54,7 @@ const SleepLog = () => {
     // }
 
 
-    const today = new Date(); 
+    const today = new Date();  
 
     if(!logState) {
         return (<h2>Loading...</h2>)
