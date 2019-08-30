@@ -3,7 +3,7 @@ import './Clock.scss';
 import axiosWithAuth from '../axiosWithAuth';
 
 class ClockApp extends Component {
-  state ={
+  state = {
 		startTime: null,
 		endTime: null,
 		h: null,
@@ -121,12 +121,17 @@ class ClockApp extends Component {
     this.getCurrentEndTime()
   }
 
-  logTime(key, start, stop){
+  logTime(){
+	//   console.log(this.state.key); 
     axiosWithAuth()
-    .post("https://sleeptracker-api.herokuapp.com/api/sleep/", {key, start, stop})
+	.post("https://sleeptracker-api.herokuapp.com/api/sleep/", 
+	{
+		user_id: this.state.key,
+		sleep_start: this.state.startTime,
+		sleep_end: this.state.endTime
+	})
     .then(res => {
-      console.log(res.data);
-      
+      console.log(res);
     })
     .catch(err => console.log(err))
 }
@@ -158,7 +163,7 @@ class ClockApp extends Component {
          	End Sleep Timer
 				</button>
 
-        <button className="LogTime"  onClick={() => this.logTime(this.key, this.startTime, this.endTime)}>
+        <button className="LogTime"  onClick={() => this.logTime()}>
           Log Sleep Time
          </button>
 

@@ -16,8 +16,9 @@ const SleepLogModal = ({ handleClose, logState, showModal}) => {
       })
 
     const [ submitTimes, setSubmitTimes ] = useState({
-        sleepEnd: null,
-        sleepStart: null,
+        user_id: childID,
+        sleep_start: null,
+        sleep_end: null,
     })
 
     useEffect(() => {
@@ -60,23 +61,20 @@ const SleepLogModal = ({ handleClose, logState, showModal}) => {
         const endTime = new Date(`${clockTimes.sleep_end_date} ${clockTimes.sleep_end}`).getTime(); 
 
         setSubmitTimes({
-            startTime: startTime,
-            endTime: endTime,
+            user_id: childID,
+            sleep_start: startTime,
+            sleep_end: endTime,
         })
-        console.log(submitTimes); 
-            // axiosWithAuth()
-            //     .post(`https://sleeptracker-api.herokuapp.com/api/sleep`, clockTimes)
-            //     .then(res => console.log(res))
-            //     .catch(err => console.log(err)
-        // handleClose(); 
-        // console.log(clockTimes); 
-
+        
+        //     axiosWithAuth()
+        //     .post("https://sleeptracker-api.herokuapp.com/api/sleep/", submitTimes)
+        //     .then(res => {
+        //       console.log(res);
+        //     })
+        //     .catch(err => console.log(err))
+        // }
     }
-
-
-
-
-    console.log('LINE 72', submitTimes); 
+    console.log(submitTimes); 
 
     return ( 
         <div className='modal'>

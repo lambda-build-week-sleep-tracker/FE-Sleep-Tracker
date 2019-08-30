@@ -6,7 +6,7 @@ const LogEntry = (props) => {
 
     const childID = localStorage.getItem('id')
 
-    console.log(props); 
+    // console.log(props); 
     const start = new Date(props.logState.sleep_start).toLocaleTimeString();
     const end = new Date(props.logState.sleep_end).toLocaleTimeString(); 
     const msSlept = props.logState.sleep_end - props.logState.sleep_start

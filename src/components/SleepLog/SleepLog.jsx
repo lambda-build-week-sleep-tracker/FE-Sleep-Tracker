@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'; 
+import React, { Fragment, useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; 
 
 // Component imports
 import LogEntry from './LogEntry'; 
@@ -70,7 +71,7 @@ const SleepLog = () => {
                 {/* <input type="text" placeholder="Search"/> */}
                 {showModal ? <SleepLogModal showModal={showModal} logState={logState} handleClose={handleClose} /> : null}
                 {/* <SleepLogModal show={showModal} handleClose={handleClose} /> */}
-                <button className="add-time" onClick={displayModal}>Add new time</button>
+                <Link to='/timer'><button className="add-time">Add new time</button></Link>
             </div>
             {/* <LogEntry /> */}
             <div className="time-log">

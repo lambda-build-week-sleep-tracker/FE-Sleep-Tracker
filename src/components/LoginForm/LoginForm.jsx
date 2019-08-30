@@ -54,6 +54,7 @@ const FormikLoginForm  = withFormik({
 		axios
 			.post("https://sleeptracker-api.herokuapp.com/auth/login/", values)
 			.then(res => {
+				localStorage.setItem('childObj', res)
 				localStorage.setItem('token', res.data.token)
 				localStorage.setItem('id', res.data.id)
 				console.log(props); 
