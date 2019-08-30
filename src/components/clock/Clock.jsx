@@ -4,20 +4,20 @@ import axiosWithAuth from '../axiosWithAuth';
 
 class ClockApp extends Component {
   state ={
-		startTime: null,
-		endTime: null,
+    id: null,
+		sleep_start: null,
+		sleep_end: null,
 		h: null,
 		m: null,
 		dh: null,
 		dm: null,
     session: "AM",
     displayStart: '--:--',
-    displayAwake:'--:--',
-    key: null
+    displayAwake:'--:--'
 	}
 
 	componentDidMount(){
-    this.setState({...this.state, key: localStorage.getItem("id")})
+    this.setState({...this.state, id: localStorage.getItem("id")})
 		setInterval(() => {
 			this.setState({...this.state, h: new Date().getHours(), m: new Date().getMinutes()})
       // console.log(this.state.mood)
@@ -56,23 +56,23 @@ class ClockApp extends Component {
 
 	}
 
-	 getCurrentStartTime=() => {
+	 getCurrentsleep_start=() => {
 
 		let currentTime = new Date().getTime()
 
-		this.setState({...this.state, ["startTime"]: currentTime})
+		this.setState({...this.state, ["sleep_start"]: currentTime})
 
 	}
 
-  getCurrentEndTime=() => {
+  getCurrentsleep_end=() => {
 
 		let currentTime = new Date().getTime()
 
-		this.setState({...this.state, ["endTime"]: currentTime})
+		this.setState({...this.state, ["sleep_end"]: currentTime})
 
 	}
 
-  displayStartTime=()=>{
+  displaysleep_start=()=>{
     let displayHour = new Date().getHours()
 		let displayMinute = new Date().getMinutes()
 
@@ -91,7 +91,7 @@ class ClockApp extends Component {
     this.setState({...this.state, ["displayStart"]: `${displayHour}:${displayMinute}`});
   }
 
-  displayEndTime=()=>{
+  displaysleep_end=()=>{
     let displayHour = new Date().getHours()
 		let displayMinute = new Date().getMinutes()
 
@@ -111,19 +111,19 @@ class ClockApp extends Component {
     this.setState({...this.state, ["displayAwake"]: `${displayHour}:${displayMinute}`});
   }
 
-  async startTimeHandler(){
-    await this.displayStartTime();
-    this.getCurrentStartTime()
+  async sleep_startHandler(){
+    await this.displaysleep_start();
+    this.getCurrentsleep_start()
   }
 
   async awakeTimeHandler(){
-    await this.displayEndTime();
-    this.getCurrentEndTime()
+    await this.displaysleep_end();
+    this.getCurrentsleep_end()
   }
 
-  logTime(key, start, stop){
+  logTime(id, start, stop){
     axiosWithAuth()
-    .post("https://sleeptracker-api.herokuapp.com/api/sleep/", {key, start, stop})
+    .post("https://sleeptracker-api.herokuapp.com/api/sleep/", {id, start, stop})
     .then(res => {
       console.log(res.data);
       
@@ -146,22 +146,21 @@ class ClockApp extends Component {
         </div>
         </div>
 				<div className="timer">
-					{this.state.dt}
+					<p>{this.state.dt} {this.state.session}</p>
 				</div>
 
          
-				<button className="StartTimer" name="startTime" onClick={() => this.startTimeHandler()} >
+				<button className="StartTimer" onClick={() => this.sleep_startHandler()} >
 					Start Sleep Timer
 				</button>
  
-				<button className="EndTimer" name="endTime" onClick={() => this.awakeTimeHandler()}>
+				<button className="EndTimer" onClick={() => this.awakeTimeHandler()}>
          	End Sleep Timer
 				</button>
 
-        <button className="LogTime"  onClick={() => this.logTime(this.key, this.startTime, this.endTime)}>
+        <button className="LogTime"  onClick={() => this.logTime(this.id, this.sleep_start, this.sleep_end)}>
           Log Sleep Time
          </button>
-
 
       </div>
     );
